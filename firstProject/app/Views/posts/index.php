@@ -3,22 +3,27 @@
 <?= $this->section('content'); ?>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-  <div class="wrapper">
+<div class="wrapper">
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="/assets/adminlte/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
   </div>
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+   <!-- Navbar -->
+   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/home" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/about" class="nav-link">Contact</a>
+      </li>
     </ul>
-
   </nav>
   <!-- /.navbar -->
 
@@ -35,10 +40,22 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/assets/adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="/assets/adminlte/dist/img/fotoDiri.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">Viny Silvia</a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -47,27 +64,24 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
-            <a href="/admin" class="nav-link active ">
+          <li class="nav-item">
+            <a href="/admin" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-
           <li class="nav-item">
             <a href="/admin/posts" class="nav-link">
               <i class="nav-icon fas fa-book-open"></i>
               <p>
-                My Post
+                My Posts
               </p>
             </a>
           </li>
-
         </ul>
       </nav>
-
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -80,85 +94,77 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">My Posts</h1>
+            <h1 class="m-0">My posts</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-
     <!-- /.content-header -->
 
-    <!-- /Main Content -->
-    <div class="container">
+    <!-- Main Content -->
+    <section class="content">
+    <?php if (session()->getFlashdata('success')) : ?>
+        <div class="alert alert-success" role="alert">
+          <?= session()->getFlashdata('success'); ?>
+        </div>
+      <?php endif; ?>
+      <div class="container-fluid">
         <a href="/admin/posts/create" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</a>
         <div class="card mt-3">
           <div class="card-header">
-            <b>Daftar Postingan</b>
+            Daftar Postingan
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-              <div class="table table-striped text-center">
-
-              <table class="table">
+          <div class="table-responsive">
+            <table class="table table-striped text-center">
               <thead>
                 <tr>
-                  <th scope="col">No.</th>
-                  <th scope="col">Judul</th>
-                  <th scope="col">Slug</th>
-                  <th scope="col">Author</th>
-                  <th scope="col">Kategori</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">No.</h>
+                  <th scope="col">Judul</h>
+                  <th scope="col">slug</h>
+                  <th scope="col">author</h>
+                  <th scope="col">kategori</h>
+                  <th scope="col">action</h>
                 </tr>
               </thead>
               <tbody>
                 <?php foreach ($posts as $i => $post) : ?>
                   <tr>
-                    <th scope="row"><?= $i + 1; ?></th>
-                    <td><?= $post['judul']; ?></td>
-                    <td><?= $post['slug'] ?></td>
-                    <td><?= $post['author'] ?></td>
-                    <td><?= $post['kategori']; ?></td>
-                    <td>
-                      <a href="/admin/posts/edit/<?= $post['slug']; ?>" class="btn btn-sm btn-warning me-1"><i class="fas fa-edit"></i>Edit</a>
-                      <a href="/admin/posts/delete/<?= $post['slug']; ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i>Delete</a>
-                    </td>
+                  <th scope="row"><?= $i + 1; ?></th>
+                      <td><?= $post['judul'] ?></td>
+                      <td><?= $post['slug'] ?></td>
+                      <td><?= $post['author'] ?></td>
+                      <td><?= $post['kategori'] ?></td>
+                      <td>
+                          <a href="posts/edit/<?= $post['post_id']; ?>" class="btn btn-sm btn-warning me-1"><i class="fas fa-edit"></i> Edit</a>
+
+                          <form action="posts/<?= $post['post_id']; ?>" method="post" class="d-inline">
+                          <?= csrf_field(); ?>
+                          <input type="hidden" name="_method" value="delete">
+                          <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ?');"><i class="fas fa-trash"></i> Hapus</button>
+                          </form>
+                      </td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
           </div>
-
-              </div>
-          </div>
-          
         </div>
-
+      </div>
     </div>
-    <!-- /.Main Content -->
-
-
-    
-          <!-- right col -->
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  
   <footer class="main-footer">
-    <div class="text-center">
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-      All rights reserved.
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.1.0
     </div>
-
   </footer>
 
   <!-- Control Sidebar -->
@@ -169,4 +175,4 @@
 </div>
 <!-- ./wrapper -->
 
-<?= $this->endsection(); ?>
+<?= $this->endSection(); ?>
